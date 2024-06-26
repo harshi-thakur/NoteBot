@@ -49,7 +49,7 @@ async function handleAskNote(messageText, replyingUser) {
 async function handleSaveNote(replyingUser, time) {
     var pattern = /^\d{4}\/(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\s([0-1][0-9]|2[0-3]):([0-5][0-9])$/;
     // Test the date string against the pattern
-    if (true) {
+    if (time) {
         await saveNote(replyingUser.db_id, replyingUser.title, replyingUser.content, time);
         replyingUser.state = "";
         const [date, timing] = time.split(" ");
@@ -74,7 +74,7 @@ async function handleSaveNote(replyingUser, time) {
     }
     else {
         await saveNote(replyingUser.db_id, replyingUser.title, replyingUser.content);
-        sendMessage(replyingUser.id, "Message saved Successfully 👍 but reminder not set invalid date");
+        sendMessage(replyingUser.id, "Message saved Successfully 👍 but reminder not set");
     }
 }
 async function handleStates(messageText, replyingUser, messageId) {

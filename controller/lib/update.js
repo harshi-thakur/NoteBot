@@ -1,7 +1,7 @@
 const { getTotalCount, displayNote, deleteNote } = require("../../database/query");
 const { errorHandler } = require("./helper");
 const { startKeyboard } = require("./keyboards");
-const { updateKeyboard, sendMessage } = require("./methods");
+const { updateKeyboard, sendMessage, deleteMessage } = require("./methods");
 const { handleshowNotes } = require("./query");
 const { handleSaveNote } = require("./state");
 const { updateUser } = require("./users");
@@ -48,8 +48,10 @@ async function handleUpdate(queryObj) {
                     replyingUser.state ="ask_time";
                     return updateKeyboard(replyingUser.id,messageId,'Enter the time(24 hour) in format "YYYY/MM/DD HH:MM" ');
                 }
-                else
+                else{
+                    deleteMessage(chatId,messageId);
                     return handleSaveNote(replyingUser);
+                }
             case "delete":
                 replyingUser.state="";
                 await deleteNote(replyingUser.db_id,page);
